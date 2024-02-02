@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" 
+    href="{% static 'css/bootstrap.min.css' %}">
+    <title>Post Edit</title>
+</head>
+<body>
+    <div>
+        <h1>Create a new post</h1>
+        <form class="form" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input 
+            type="submit" 
+            class="btn btn-sm btn-primary" 
+            value="Edit" />
+        </form>
+    </div>
+</body>
+</html>l

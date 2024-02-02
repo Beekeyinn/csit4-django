@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 
-from post.forms import PostCreateForm
+from post.forms import PostCreateForm, PostModelForm
 from post.models import Post
 
 
@@ -40,14 +40,28 @@ def post_create(request):
 
 
 def post_edit(request, id):
-    post = Post.objects.get(id=id)
-    return render(
-        request,
-        "post/edit.html",
-        context={
-            "post": post,
-        },
-    )
+    if request.method == "GET":
+        post = Post.objects.get(id=id)
+        form = PostModelForm(instance=post)
+        return render(
+            request,
+            "post/edit.html",
+            context={
+                "post": post,
+                "form": form,
+            },
+        )
+    else:
+        post = Post.objects.get(id=id)
+        form = PostModelForm(instance=post, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("post-list")
+        return render(
+            request,
+            "post/edit.html",
+            context={"post": post, "form": form},
+        )
 
 
 def post_detail(request, id):

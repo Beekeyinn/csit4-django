@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{post.title}}</title>
+</head>
+<body>
+    <div>
+        <h1 class="text-info text-center">{{post.title}}</h1>
+        <span class="float-end">{{post.created_at}}</span>
+        {% if post.image %}
+            <img src="{{post.image.url}}" alt="{{ post.title }}" />
+            {% else %}
+            <img src="{% static 'default.png' %}" alt="no image" />
+        {% endif %}
+        <p class="text-dark">{{post.content}}</p>
+    </div>
+</body>
+</html>
