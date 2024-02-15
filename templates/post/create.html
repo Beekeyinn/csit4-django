@@ -1,18 +1,15 @@
 {% extends "layout/base.html" %}
 {% load static %}
 {% block title %}
-Post Create
+    Post Create
 {% endblock title %}
 {% block content %}
     <div>
         <h1>Create a new post</h1>
-        <form class="form" method="post">
+        <form class="form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{form.as_p}}
-            <input 
-            type="submit" 
-            class="btn btn-sm btn-primary" 
-            value="Create" />
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-sm btn-primary" value="Create" />
         </form>
     </div>
 {% endblock content %}

@@ -9,6 +9,14 @@ class PostCreateForm(forms.Form):
         required=True,
         widget=forms.TextInput(attrs={"class": "form-control"}),
     )
+    image = forms.ImageField(
+        label="Post Image",
+        widget=forms.FileInput(
+            attrs={
+                "class": "form-control",
+            }
+        ),
+    )
     content = forms.CharField(
         label="Post Content",
         widget=forms.Textarea(

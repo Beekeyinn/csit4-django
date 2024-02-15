@@ -3,16 +3,18 @@
 {% block title %}
     Post List
 {% endblock title %}
-{% block content %}   
-<div>
-        <h1 class="text-center text-info">Post List</h1>
-        {% for post in posts %}
-        <div class="card">
-            <a href="{% url 'post-detail' post.id %}">
-                <h3 class="card-title">{{ post.title }}</h3>
-            </a>
-            <p class="card-content">{{ post.content }}</p>
+{% block content %}
+    <div class="row">
+        <div class="col-6 offset-3">
+            <h1 class="text-center text-info">Post List</h1>
+            {% for post in posts %}
+                <div class="card">
+                    <a href="{% url 'post-detail' post.id %}">
+                        <h3 class="card-title">{{ post.title }}</h3>
+                    </a>
+                    <p class="card-content">{{ post.content }}</p>
+                </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 {% endblock content %}

@@ -24,12 +24,13 @@ def post_create(request):
             context={"form": form},
         )
     else:
-        form = PostCreateForm(data=request.POST)
+        form = PostCreateForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             print("form data sent through html form", form.cleaned_data, request.POST)
             post = Post.objects.create(
                 title=form.cleaned_data.get("title"),
                 content=form.cleaned_data.get("content"),
+                image=form.cleaned_data.get("image"),
             )
             return redirect("post-list")
         return render(
@@ -53,7 +54,11 @@ def post_edit(request, id):
         )
     else:
         post = Post.objects.get(id=id)
-        form = PostModelForm(instance=post, data=request.POST)
+        form = PostModelForm(
+            instance=post,
+            data=request.POST,
+            files=request.FILES,
+        )
         if form.is_valid():
             form.save()
             return redirect("post-list")
