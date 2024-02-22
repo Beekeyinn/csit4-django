@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 
 from post.forms import PostCreateForm, PostModelForm
 from post.models import Post
+from django.contrib.auth.models import AbstractUser
 
 
 def post_list(request):
@@ -78,3 +79,12 @@ def post_detail(request, id):
             "post": post,
         },
     )
+
+
+def post_delete(request, id):
+    try:
+        post = Post.objects.get(id=id)
+        post.delete()
+        return redirect("post-list")
+    except Exception as e:
+        return render(request, "errors/404.html", {"exception": e})

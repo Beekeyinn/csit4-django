@@ -1,0 +1,15 @@
+{% extends "layout/base.html" %}
+{% block title %}
+    Login
+{% endblock title %}
+{% block content %}
+    <div class="row">
+        <div class="col-6 offset-3">
+            <form method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input class="btn btn-md btn-success" type="submit" value="Login">
+            </form>
+        </div>
+    </div>
+{% endblock content %}

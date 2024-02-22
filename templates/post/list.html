@@ -13,6 +13,10 @@
                         <h3 class="card-title">{{ post.title }}</h3>
                     </a>
                     <p class="card-content">{{ post.content }}</p>
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'post-edit' post.id %}" class="btn btn-md btn-secondary">Edit</a>
+                        <a href="{% url 'post-delete' post.id %}" class="btn btn-md btn-danger">Delete</a>
+                    </div>
                 </div>
             {% endfor %}
         </div>
