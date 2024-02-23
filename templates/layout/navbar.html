@@ -24,9 +24,13 @@
           <a class="nav-link" href="#">About</a>
         </li>
       </ul>
-      <div class="me-3 d-flex">
-        <a class="nav-link btn btn-primary" href="{% url 'register' %}">Register</a>
-        <a class="nav-link bn btn-success" href="{% url 'login' %}">Login</a>
+      <div class="ms-auto d-flex gap-2">
+        {% if request.user.is_authenticated %}
+          <a class="nav-link btn btn-primary" href="{% url 'logout' %}">Logout</a>
+        {% else %}
+          <a class="nav-link btn btn-primary" href="{% url 'register' %}">Register</a>
+          <a class="nav-link bn btn-success" href="{% url 'login' %}">Login</a>
+        {% endif %}
       </div>
     </div>
   </div>

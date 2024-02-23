@@ -1,12 +1,14 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import AbstractUser
 from django.shortcuts import redirect, render
 
 from post.forms import PostCreateForm, PostModelForm
 from post.models import Post
-from django.contrib.auth.models import AbstractUser
 
 
+@login_required
 def post_list(request):
-    posts = Post.objects.all()
+    posts = Post.objects.filter(user=request.user)
     return render(
         request,
         "post/list.html",
@@ -16,6 +18,7 @@ def post_list(request):
     )
 
 
+@login_required
 def post_create(request):
     if request.method == "GET":
         form = PostCreateForm()
@@ -32,6 +35,7 @@ def post_create(request):
                 title=form.cleaned_data.get("title"),
                 content=form.cleaned_data.get("content"),
                 image=form.cleaned_data.get("image"),
+                user=request.user,
             )
             return redirect("post-list")
         return render(
@@ -41,9 +45,10 @@ def post_create(request):
         )
 
 
+@login_required
 def post_edit(request, id):
     if request.method == "GET":
-        post = Post.objects.get(id=id)
+        post = Post.objects.get(id=id, user=request.user)
         form = PostModelForm(instance=post)
         return render(
             request,
@@ -54,7 +59,7 @@ def post_edit(request, id):
             },
         )
     else:
-        post = Post.objects.get(id=id)
+        post = Post.objects.get(id=id, user=request.user)
         form = PostModelForm(
             instance=post,
             data=request.POST,
@@ -81,9 +86,10 @@ def post_detail(request, id):
     )
 
 
+@login_required
 def post_delete(request, id):
     try:
-        post = Post.objects.get(id=id)
+        post = Post.objects.get(id=id, user=request.user)
         post.delete()
         return redirect("post-list")
     except Exception as e:

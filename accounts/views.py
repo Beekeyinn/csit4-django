@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 
 from accounts.forms import UserCreationForm
+from profiles.models import UserProfile
 
 
 # Create your views here.
@@ -11,7 +12,8 @@ def register(request):
     else:
         form = UserCreationForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            UserProfile.objects.create(user=user)
             return redirect("login")
         else:
             return render(request, "accounts/register.html", {"form": form})

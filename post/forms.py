@@ -36,4 +36,4 @@ from post.models import Post
 class PostModelForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = "__all__"
+        fields = ["title", "content", "image"]
